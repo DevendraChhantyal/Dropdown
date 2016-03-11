@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Sample.Application.Models.Email>
+@using Sample.Application.Models
+@using Sample.Application.Service
+     
+@{
+    ViewBag.Title = "Index";
+    EmailTemplateService ets = new EmailTemplateService();
+    
+    List<SelectListItem> itemList = new List<SelectListItem>();
+    foreach(EmailTemplate et in ets.GetAll()){
+        itemList.Add(new SelectListItem() { 
+            Text=et.Title,
+            Value=et.Id.ToString()
+        });
+        
+    }
+}
+
+
+<h2>Email</h2>
+<div class="pull-right">
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Send Email
+    </button>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Send Email</h4>
+            </div>
+            <div class="modal-body">
+
+             
+
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.Email.EmailTemplateId, "Title")
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownListFor(model => model.Email.EmailTemplateId, Model.Title, "--Select a Title--")
+                    @Html.ValidationMessageFor(model => model.Email.EmailTemplateId)
+                </div>*@
+
+
+
+                @Html.DropDownList("Emails", itemList);
+
+            </div>
+            <form method="post">
+                <input type="checkbox" name="chk1" />
+                <p>User @Request["chk1"]</p>
+                <input type="checkbox" name="chk2" value="my own value" />
+                <p>Subscriber @Request["chk2"]</p>
+
+            </form>
+
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-save">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<table class="table table-sthiped table-bordered table-hover">
+
+    <tr>
+        <th>Id</th>
+        <th>EmailTemplateId</th>
+        <th>Type</th>
+        <th>LogDate</th>
+
+    </tr>
+
+
+    @foreach (var m in Model)
+    {
+        <tr>
+            <td>@m.Id</td>
+            <td>@m.EmailTemplateId</td>
+            <td>@m.Type</td>
+            <td>@m.LogDate</td>
+
+        </tr>
+    }
+</table>
+<script>
+
+</script>
+
+
+
+

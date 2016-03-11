@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Sample.Application.Models.User>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>User</h2>
+<div class="pull-right">
+    <p>
+        <a href="/User/Create" class="btn btn-success btn-xs">Register<span class="glyphicon glyphicon-plus"></span></a>
+    </p>
+</div>
+
+<table class="table table-sthiped table-bordered table-hover">
+
+    <tr>
+        <th>Id</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Email</th>
+        <th>ContactNo</th>
+        <th>AddedDate</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+
+    @foreach (var m in Model)
+    {
+        <tr>
+            <td>@m.Id</td>
+            <td>@m.FirstName</td>
+            <td>@m.LastName</td>
+            <td>@m.Email</td>
+            <td>@m.ContactNo</td>
+            <td>@m.AddedDate</td>
+            <td>@m.Status</td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit/" + @m.Id, "User")
+                @Html.ActionLink("Delete", "Delete/" + @m.Id, "User")
+            </td>
+
+        </tr>
+    }
+</table>
